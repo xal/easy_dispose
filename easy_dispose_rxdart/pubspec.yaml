@@ -1,0 +1,18 @@
+name: easy_dispose_rxdart
+version: 1.0.0
+
+homepage: https://github.com/xal/easy_dispose
+description: Extension to easy_dispose package. Dispose rxdart classes
+repository: https://github.com/xal/easy_dispose
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  easy_dispose: ^1.0.0
+  rxdart: ^0.27.1
+
+dev_dependencies:
+  dart_code_metrics: ^4.0.1
+  lints: ^1.0.1
+  test: ^1.17.9
