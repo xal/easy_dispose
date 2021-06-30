@@ -1,8 +1,9 @@
 [![Pub](https://img.shields.io/pub/v/easy_dispose_rxdart.svg)](https://pub.dev/packages/easy_dispose_rxdart)
 
- 
 Add disposable feature to `rxdart` classes.
 Read [`easy_dispose`](https://pub.dev/packages/easy_dispose) documentation for details.
+
+You can find all available extensions in [`easy_dispose`](https://github.com/xal/easy_dispose) repository. 
 
 ## Supported features
 

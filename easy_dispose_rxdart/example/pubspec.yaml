@@ -1,5 +1,5 @@
 name: easy_dispose_rxdart_example
-version: 1.0.0
+version: 1.0.1
 publish_to: none
 
 description: An example project that uses easy_dispose_rxdart
@@ -8,10 +8,10 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  easy_dispose: ^1.0.0
+  easy_dispose: ">=1.0.0 <1.1.0"
   # only for this repo
   easy_dispose_rxdart:
     path: ../
   # usage example
   # easy_dispose_rxdart: version
-  rxdart: ^0.27.1
+  rxdart: ">=0.26.0 <=1.0.0"
