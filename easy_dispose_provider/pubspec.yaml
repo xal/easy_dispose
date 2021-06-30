@@ -1,8 +1,8 @@
 name: easy_dispose_provider
-version: 1.0.0
+version: 1.0.1
 
 homepage: https://github.com/xal/easy_dispose
-description: Extension to easy_dispose package. Dispose provider classes
+description: Extension to easy_dispose package. Dispose provider classes via DisposableStreamProvider, DisposableProvider, etc
 repository: https://github.com/xal/easy_dispose
 
 environment:
@@ -10,10 +10,10 @@ environment:
   flutter: ">=1.16.0"
 
 dependencies:
-  easy_dispose: ^1.0.0
+  easy_dispose: ">=1.0.0 <=1.1.0"
   flutter:
     sdk: flutter
-  provider: ^5.0.0
+  provider: ">=5.0.0 <=6.0.0"
 
 dev_dependencies:
   dart_code_metrics: ^4.0.1
