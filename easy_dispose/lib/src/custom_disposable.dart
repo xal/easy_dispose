@@ -20,7 +20,6 @@ class CustomDisposable extends Disposable {
 
 /// [addCustomDisposable] method for [ICompositeDisposable]
 extension CustomDisposableExtension on ICompositeDisposable {
-
   /// shortcut to add [DisposeCallback]
   void addCustomDisposable(DisposeCallback disposeCallback) {
     addDisposable(

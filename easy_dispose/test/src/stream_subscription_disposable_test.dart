@@ -5,9 +5,10 @@ import 'dart:async';
 import 'package:easy_dispose/src/stream_subscription_disposable.dart';
 import 'package:test/test.dart';
 
+// ignore_for_file: no-magic-number
 void main() {
   test('StreamSubscriptionDisposable isDisposed', () async {
-    var streamSubscriptionDisposable = StreamSubscriptionDisposable(
+    final streamSubscriptionDisposable = StreamSubscriptionDisposable(
       _createTestStreamSubscription(),
     );
     expect(streamSubscriptionDisposable.isDisposed, isFalse);
@@ -17,23 +18,25 @@ void main() {
   });
 
   test('StreamSubscriptionDisposable disposeCallback', () async {
+    // ignore: close_sinks
     final streamController = StreamController();
 
-    var listenedValue;
+    int? listenedValue;
 
-    var streamSubscription = streamController.stream.listen(
+    // ignore: cancel_subscriptions
+    final streamSubscription = streamController.stream.listen(
       (value) {
         listenedValue = value;
       },
     );
-    var streamSubscriptionDisposable =
+    final streamSubscriptionDisposable =
         StreamSubscriptionDisposable(streamSubscription);
 
     expect(listenedValue, isNull);
 
     streamController.add(1);
     await Future.delayed(
-      Duration(
+      const Duration(
         milliseconds: 500,
       ),
     );
@@ -41,11 +44,9 @@ void main() {
 
     await streamSubscriptionDisposable.dispose();
 
-
-
     streamController.add(2);
     await Future.delayed(
-      Duration(
+      const Duration(
         milliseconds: 500,
       ),
     );

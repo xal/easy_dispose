@@ -19,7 +19,6 @@ class TimerDisposable extends Disposable {
 
 /// add [disposeWith] to [Timer]
 extension TimerDisposableExtension on Timer {
-
   /// shortcut to add [TimerDisposable] to [ICompositeDisposable]
   void disposeWith(ICompositeDisposable compositeDisposable) {
     compositeDisposable.addDisposable(

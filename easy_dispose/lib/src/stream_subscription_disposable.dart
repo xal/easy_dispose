@@ -21,7 +21,6 @@ class StreamSubscriptionDisposable extends Disposable {
 
 /// add [disposeWith] to [StreamSubscription]
 extension StreamSubscriptionDisposableExtension on StreamSubscription {
-
   /// shortcut to add [StreamSubscriptionDisposable] to [ICompositeDisposable]
   void disposeWith(ICompositeDisposable compositeDisposable) {
     compositeDisposable.addDisposable(

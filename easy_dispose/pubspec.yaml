@@ -1,9 +1,9 @@
 name: easy_dispose
-version: 1.0.0
+version: 1.0.1
 
 homepage: https://github.com/xal/easy_dispose
 description: Common interface to dispose different things. Always call dispose() instead of cancel(), stop(), etc.
-repository: https://github.com/xal/easy_dispose/easy_dispose
+repository: https://github.com/xal/easy_dispose
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

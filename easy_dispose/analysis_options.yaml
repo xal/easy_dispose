@@ -1,9 +1,6 @@
 include: package:lints/recommended.yaml
 
 analyzer:
-  exclude:
-    - test/**
-    - example/**
   plugins:
     - dart_code_metrics
 
@@ -45,7 +42,7 @@ linter:
     - avoid_js_rounded_ints
     - avoid_positional_boolean_parameters
     - avoid_private_typedef_functions
-    - avoid_redundant_argument_values
+#    - avoid_redundant_argument_values
     - avoid_returning_null
     - avoid_returning_this
     - avoid_setters_without_getters
@@ -53,7 +50,7 @@ linter:
     - avoid_unnecessary_containers
     - avoid_unused_constructor_parameters
     - avoid_void_async
-    - cascade_invocations
+#    - cascade_invocations
     - cast_nullable_to_non_nullable
     - directives_ordering
     - do_not_use_environment

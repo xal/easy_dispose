@@ -4,9 +4,10 @@ import 'package:easy_dispose/src/composite_disposable.dart';
 import 'package:easy_dispose/src/custom_disposable.dart';
 import 'package:test/test.dart';
 
+// ignore_for_file: avoid-non-null-assertion
 void main() {
   test('CompositeDisposable isDisposed', () async {
-    var compositeDisposable = CompositeDisposable();
+    final compositeDisposable = CompositeDisposable();
     expect(compositeDisposable.isDisposed, isFalse);
 
     await compositeDisposable.dispose();
@@ -18,17 +19,17 @@ void main() {
     DateTime? disposable2DisposedTime;
     DateTime? disposable3DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
+    final disposable1 = CustomDisposable(() async {
       disposable1DisposedTime = DateTime.now();
     });
-    var disposable2 = CustomDisposable(() async {
+    final disposable2 = CustomDisposable(() async {
       disposable2DisposedTime = DateTime.now();
     });
-    var disposable3 = CustomDisposable(() async {
+    final disposable3 = CustomDisposable(() async {
       disposable3DisposedTime = DateTime.now();
     });
 
-    var compositeDisposable = CompositeDisposable(
+    final compositeDisposable = CompositeDisposable(
       disposeOrder: DisposeOrder.lifo,
     );
 
@@ -63,17 +64,17 @@ void main() {
     DateTime? disposable2DisposedTime;
     DateTime? disposable3DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
+    final disposable1 = CustomDisposable(() async {
       disposable1DisposedTime = DateTime.now();
     });
-    var disposable2 = CustomDisposable(() async {
+    final disposable2 = CustomDisposable(() async {
       disposable2DisposedTime = DateTime.now();
     });
-    var disposable3 = CustomDisposable(() async {
+    final disposable3 = CustomDisposable(() async {
       disposable3DisposedTime = DateTime.now();
     });
 
-    var compositeDisposable = CompositeDisposable(
+    final compositeDisposable = CompositeDisposable(
       disposeOrder: DisposeOrder.fifo,
     );
 
@@ -107,17 +108,17 @@ void main() {
     DateTime? disposable2DisposedTime;
     DateTime? disposable3DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
+    final disposable1 = CustomDisposable(() async {
       disposable1DisposedTime = DateTime.now();
     });
-    var disposable2 = CustomDisposable(() async {
+    final disposable2 = CustomDisposable(() async {
       disposable2DisposedTime = DateTime.now();
     });
-    var disposable3 = CustomDisposable(() async {
+    final disposable3 = CustomDisposable(() async {
       disposable3DisposedTime = DateTime.now();
     });
 
-    var compositeDisposable = CompositeDisposable(
+    final compositeDisposable = CompositeDisposable(
       disposeOrder: DisposeOrder.parallel,
     );
 
@@ -139,15 +140,14 @@ void main() {
     DateTime? disposable1DisposedTime;
     DateTime? disposable2DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
+    final disposable1 = CustomDisposable(() async {
       throw Exception();
-      disposable1DisposedTime = DateTime.now();
     });
-    var disposable2 = CustomDisposable(() async {
+    final disposable2 = CustomDisposable(() async {
       disposable2DisposedTime = DateTime.now();
     });
 
-    var compositeDisposable = CompositeDisposable(
+    final compositeDisposable = CompositeDisposable(
       disposeOrder: DisposeOrder.fifo,
       catchExceptions: false,
       disposableExceptionCallback: null,
@@ -168,74 +168,15 @@ void main() {
     DateTime? disposable1DisposedTime;
     DateTime? disposable2DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
+    final disposable1 = CustomDisposable(() async {
       throw Exception();
-      disposable1DisposedTime = DateTime.now();
     });
-    var disposable2 = CustomDisposable(() async {
+    final disposable2 = CustomDisposable(() async {
       disposable2DisposedTime = DateTime.now();
     });
 
-    var compositeDisposable = CompositeDisposable(
+    final compositeDisposable = CompositeDisposable(
       disposeOrder: DisposeOrder.fifo,
-      catchExceptions: true,
-    );
-
-    compositeDisposable.addDisposables([
-      disposable1,
-      disposable2,
-    ]);
-
-    await compositeDisposable.dispose();
-
-    expect(disposable1DisposedTime, isNull);
-    expect(disposable2DisposedTime, isNotNull);
-  });
-
-  test('CompositeDisposable disposeOrder parallel catchExceptions false',
-      () async {
-    DateTime? disposable1DisposedTime;
-    DateTime? disposable2DisposedTime;
-
-    var disposable1 = CustomDisposable(() async {
-      throw Exception();
-    });
-    var disposable2 = CustomDisposable(() async {
-      disposable2DisposedTime = DateTime.now();
-    });
-
-    var compositeDisposable = CompositeDisposable(
-      disposeOrder: DisposeOrder.parallel,
-      catchExceptions: false,
-      disposableExceptionCallback: null,
-    );
-
-    compositeDisposable.addDisposables([
-      disposable1,
-      disposable2,
-    ]);
-
-    expect(() async => await compositeDisposable.dispose(), throwsException);
-
-    expect(disposable1DisposedTime, isNull);
-    // disposable2DisposedTime value is undefined maybe null or not null
-  });
-
-  test('CompositeDisposable disposeOrder parallel catchExceptions true',
-      () async {
-    DateTime? disposable1DisposedTime;
-    DateTime? disposable2DisposedTime;
-
-    var disposable1 = CustomDisposable(() async {
-      throw Exception();
-    });
-    var disposable2 = CustomDisposable(() async {
-      disposable2DisposedTime = DateTime.now();
-    });
-
-    var compositeDisposable = CompositeDisposable(
-      disposeOrder: DisposeOrder.parallel,
-      catchExceptions: true,
     );
 
     compositeDisposable.addDisposables([
@@ -250,46 +191,108 @@ void main() {
   });
 
   test(
-      'CompositeDisposable '
-      'catchExceptions true disposableExceptionCallback', () async {
-    DateTime? disposable1DisposedTime;
-    DateTime? disposable2DisposedTime;
+    'CompositeDisposable disposeOrder parallel catchExceptions false',
+    () async {
+      DateTime? disposable1DisposedTime;
 
-    var disposable1 = CustomDisposable(() async {
-      throw Exception();
-    });
-    var disposable2 = CustomDisposable(() async {
-      throw Exception();
-    });
+      final disposable1 = CustomDisposable(() async {
+        throw Exception();
+      });
+      // ignore: no-empty-block
+      final disposable2 = CustomDisposable(() async {});
 
-    var disposableExceptionCallbackCalledCount = 0;
-
-    var compositeDisposable = CompositeDisposable(
-      catchExceptions: true,
-      disposableExceptionCallback: (_, __, ___) {
-        disposableExceptionCallbackCalledCount++;
-      },
-    );
-
-    compositeDisposable.addDisposables([
-      disposable1,
-      disposable2,
-    ]);
-
-    await compositeDisposable.dispose();
-
-    expect(disposableExceptionCallbackCalledCount, 2);
-  });
-
-  test(
-      'CompositeDisposable '
-      'catchExceptions false disposableExceptionCallback', () async {
-    expect(
-      () => CompositeDisposable(
+      final compositeDisposable = CompositeDisposable(
+        disposeOrder: DisposeOrder.parallel,
         catchExceptions: false,
-        disposableExceptionCallback: (_, __, ___) {},
-      ),
-      throwsArgumentError,
-    );
-  });
+        disposableExceptionCallback: null,
+      );
+
+      compositeDisposable.addDisposables([
+        disposable1,
+        disposable2,
+      ]);
+
+      expect(() async => await compositeDisposable.dispose(), throwsException);
+
+      expect(disposable1DisposedTime, isNull);
+    },
+  );
+
+  test(
+    'CompositeDisposable disposeOrder parallel catchExceptions true',
+    () async {
+      DateTime? disposable1DisposedTime;
+      DateTime? disposable2DisposedTime;
+
+      final disposable1 = CustomDisposable(() async {
+        throw Exception();
+      });
+      final disposable2 = CustomDisposable(() async {
+        disposable2DisposedTime = DateTime.now();
+      });
+
+      final compositeDisposable = CompositeDisposable(
+        disposeOrder: DisposeOrder.parallel,
+        catchExceptions: true,
+      );
+
+      compositeDisposable.addDisposables([
+        disposable1,
+        disposable2,
+      ]);
+
+      await compositeDisposable.dispose();
+
+      expect(disposable1DisposedTime, isNull);
+      expect(disposable2DisposedTime, isNotNull);
+    },
+  );
+
+  test(
+    'CompositeDisposable '
+    'catchExceptions true disposableExceptionCallback',
+    () async {
+
+      final disposable1 = CustomDisposable(() async {
+        throw Exception();
+      });
+      final disposable2 = CustomDisposable(() async {
+        throw Exception();
+      });
+
+      var disposableExceptionCallbackCalledCount = 0;
+
+      final compositeDisposable = CompositeDisposable(
+        catchExceptions: true,
+        disposableExceptionCallback: (_, __, ___) {
+          disposableExceptionCallbackCalledCount++;
+        },
+      );
+
+      compositeDisposable.addDisposables([
+        disposable1,
+        disposable2,
+      ]);
+
+      await compositeDisposable.dispose();
+
+      // ignore: no-magic-number
+      expect(disposableExceptionCallbackCalledCount, 2);
+    },
+  );
+
+  test(
+    'CompositeDisposable '
+    'catchExceptions false disposableExceptionCallback',
+    () async {
+      expect(
+        () => CompositeDisposable(
+          catchExceptions: false,
+          // ignore: no-empty-block
+          disposableExceptionCallback: (_, __, ___) {},
+        ),
+        throwsArgumentError,
+      );
+    },
+  );
 }

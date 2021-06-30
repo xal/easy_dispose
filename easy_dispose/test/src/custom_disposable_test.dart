@@ -6,8 +6,8 @@ import 'package:test/test.dart';
 void main() {
   test('CustomDisposable isDisposed', () async {
     // ignore: no-empty-block
-    var disposeCallback = () async {};
-    var customDisposable = CustomDisposable(disposeCallback);
+    Future disposeCallback() async {}
+    final customDisposable = CustomDisposable(disposeCallback);
     expect(customDisposable.isDisposed, isFalse);
 
     await customDisposable.dispose();
@@ -17,10 +17,11 @@ void main() {
   test('CustomDisposable disposeCallback', () async {
     var callbackCalled = false;
 
-    var disposeCallback = () async {
+    Future disposeCallback() async {
       callbackCalled = true;
-    };
-    var customDisposable = CustomDisposable(disposeCallback);
+    }
+
+    final customDisposable = CustomDisposable(disposeCallback);
 
     expect(callbackCalled, isFalse);
     await customDisposable.dispose();

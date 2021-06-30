@@ -6,6 +6,16 @@ This package define `IDisposable` interface and special implementations for diff
 You can use `CompositeDisposable` & `DisposableOwner` to group different `IDisposable`
 Additionally `disposeWith` extensions makes using disposables easier.
 
+You can also use easy_dispose_* extensions:
+
+* [`easy_dispose_flutter`](https://pub.dev/packages/easy_dispose_flutter)
+* [`easy_dispose_provider`](https://pub.dev/packages/easy_dispose_provider)
+* [`easy_dispose_rxdart`](https://pub.dev/packages/easy_dispose_rxdart)
+
+You can find all available extension in [`easy_dispose`](https://github.com/xal/easy_dispose) repository. 
+
+
+
 ## Supported types
 
 * StreamController

@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('StreamControllerDisposable isDisposed', () async {
-    var streamControllerDisposable = StreamControllerDisposable(
+    final streamControllerDisposable = StreamControllerDisposable(
       _createTestStreamController(),
     );
     expect(streamControllerDisposable.isDisposed, isFalse);
@@ -17,8 +17,9 @@ void main() {
   });
 
   test('StreamControllerDisposable disposeCallback', () async {
-    var streamController = _createTestStreamController();
-    var streamControllerDisposable =
+    // ignore: close_sinks
+    final streamController = _createTestStreamController();
+    final streamControllerDisposable =
         StreamControllerDisposable(streamController);
 
     expect(streamController.isClosed, isFalse);

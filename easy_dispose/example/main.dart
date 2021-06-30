@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:easy_dispose/easy_dispose.dart';
-// ignore_for_file: no-empty-block
-void main() {
-  var myDisposableOwner = MyDisposableOwner();
+// ignore_for_file: no-empty-block, avoid_print
+Future main() async {
+  final myDisposableOwner = MyDisposableOwner();
 
   // do something
 
-  myDisposableOwner.dispose();
+  await myDisposableOwner.dispose();
 }
 
 class MyDisposableOwner extends DisposableOwner {
   final StreamController streamController = StreamController();
   final Timer timer = Timer(
-    Duration(seconds: 5),
+    const Duration(seconds: 5),
     () async {},
   );
 

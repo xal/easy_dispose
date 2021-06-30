@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('TimerDisposable isDisposed', () async {
-    var timerDisposable = TimerDisposable(
+    final timerDisposable = TimerDisposable(
       _createTestTimer(),
     );
     expect(timerDisposable.isDisposed, isFalse);
@@ -17,8 +17,8 @@ void main() {
   });
 
   test('TimerDisposable disposeCallback', () async {
-    var timer = _createTestTimer();
-    var timerDisposable = TimerDisposable(timer);
+    final timer = _createTestTimer();
+    final timerDisposable = TimerDisposable(timer);
 
     expect(timer.isActive, isTrue);
     await timerDisposable.dispose();
@@ -26,10 +26,8 @@ void main() {
   });
 }
 
-Timer _createTestTimer() {
-  return Timer(
+Timer _createTestTimer() => Timer(
     const Duration(seconds: 10),
     // ignore: no-empty-block
     () {},
   );
-}

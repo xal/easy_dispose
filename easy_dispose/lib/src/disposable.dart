@@ -11,7 +11,10 @@ abstract class IDisposable {
 
 /// Base disposable implementation with [isDisposed] check
 /// before [performDispose] call
-abstract class Disposable implements IDisposable {
+abstract class Disposable extends IDisposable with DisposableMixin {}
+
+/// Mixin with [isDisposed] check before [performDispose] call
+mixin DisposableMixin on IDisposable {
   @override
   bool isDisposed = false;
 
