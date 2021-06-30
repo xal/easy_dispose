@@ -4,6 +4,8 @@
 Add disposable feature to Flutter classes.
 Read [`easy_dispose`](https://pub.dev/packages/easy_dispose) documentation for details.
 
+You can find all available extensions in [`easy_dispose`](https://github.com/xal/easy_dispose) repository. 
+
 ## Supported features
 
 * ChangeNotifier listeners

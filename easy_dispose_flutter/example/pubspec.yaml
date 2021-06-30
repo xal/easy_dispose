@@ -1,5 +1,5 @@
 name: easy_dispose_flutter_example
-version: 1.0.0
+version: 1.0.1
 publish_to: none
 
 description: An example project that uses easy_dispose_flutter
@@ -9,6 +9,7 @@ environment:
   flutter: ">=1.16.0"
 
 dependencies:
+  easy_dispose: ">=1.0.0 <=1.1.0"
   # only for this repo
   easy_dispose_flutter:
     path: ../

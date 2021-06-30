@@ -1,8 +1,8 @@
 name: easy_dispose_flutter
-version: 1.0.0
+version: 1.0.1
 
 homepage: https://github.com/xal/easy_dispose
-description: Extension to easy_dispose package. Dispose Flutter API classes
+description: Extension to easy_dispose package. Dispose Flutter API classes like TextEditingController, FocusNode, ChangeNotifier listeners, etc.
 repository: https://github.com/xal/easy_dispose
 
 environment:
@@ -10,7 +10,7 @@ environment:
   flutter: ">=1.16.0"
 
 dependencies:
-  easy_dispose: ^1.0.0
+  easy_dispose: ">=1.0.0 <=1.1.0"
 
   flutter:
     sdk: flutter
@@ -18,7 +18,7 @@ dependencies:
 dev_dependencies:
   dart_code_metrics: ^4.0.1
   flutter_lints: ^1.0.3
-  matcher: ^0.12.10
   flutter_test:
     sdk: flutter
   lints: ^1.0.1
+  matcher: ^0.12.10
