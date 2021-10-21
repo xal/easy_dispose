@@ -1,5 +1,6 @@
 library easy_dispose_flutter_test;
 
+// ignore_for_file: avoid-ignoring-return-values
 import 'package:easy_dispose_flutter/src/material/tab_controller/tab_controller_disposable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,7 +27,7 @@ void main() {
 
     await tabControllerDisposable.dispose();
     expect(
-      () => tabController.notifyListeners(),
+      tabController.notifyListeners,
       throwsA(
         // ignore:
         const matcher.TypeMatcher<FlutterError>(),

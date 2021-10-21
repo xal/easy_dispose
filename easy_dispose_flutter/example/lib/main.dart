@@ -50,7 +50,7 @@ class MyDisposableOwner extends DisposableOwner {
 
   MyDisposableOwner({
     required TickerProvider tickerProvider,
-  })   : tabController = TabController(
+  })  : tabController = TabController(
           length: 1,
           vsync: tickerProvider,
         ),

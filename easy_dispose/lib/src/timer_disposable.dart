@@ -12,7 +12,7 @@ class TimerDisposable extends Disposable {
   TimerDisposable(this.timer);
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     timer.cancel();
   }
 }

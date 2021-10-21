@@ -19,7 +19,7 @@ void main() {
 
   test('StreamSubscriptionDisposable disposeCallback', () async {
     // ignore: close_sinks
-    final streamController = StreamController();
+    final streamController = StreamController<int>();
 
     int? listenedValue;
 
@@ -35,7 +35,7 @@ void main() {
     expect(listenedValue, isNull);
 
     streamController.add(1);
-    await Future.delayed(
+    await Future<void>.delayed(
       const Duration(
         milliseconds: 500,
       ),
@@ -45,7 +45,7 @@ void main() {
     await streamSubscriptionDisposable.dispose();
 
     streamController.add(2);
-    await Future.delayed(
+    await Future<void>.delayed(
       const Duration(
         milliseconds: 500,
       ),

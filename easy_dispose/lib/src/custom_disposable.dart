@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'composite_disposable.dart';
 import 'disposable.dart';
 
 /// Define function for [CustomDisposable.disposeCallback]
-typedef DisposeCallback = Function();
+typedef DisposeCallback = FutureOr<void> Function();
 
 /// Executes [disposeCallback] when [IDisposable.dispose] called
 class CustomDisposable extends Disposable {
@@ -13,7 +15,7 @@ class CustomDisposable extends Disposable {
   CustomDisposable(this.disposeCallback);
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     await disposeCallback();
   }
 }

@@ -13,7 +13,7 @@ Future main() async {
 }
 
 class MyDisposableOwner extends DisposableOwner {
-  final Subject subject = BehaviorSubject();
+  final Subject subject = BehaviorSubject<dynamic>();
 
   MyDisposableOwner()
       : super(
@@ -24,7 +24,7 @@ class MyDisposableOwner extends DisposableOwner {
 
     subject.stream
         .listen(
-          (_) {},
+          (dynamic event) {},
         )
         .disposeWith(this);
     addCustomDisposable(() => print('First dispose'));

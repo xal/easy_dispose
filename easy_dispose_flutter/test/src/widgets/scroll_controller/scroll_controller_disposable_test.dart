@@ -1,5 +1,6 @@
 library easy_dispose_flutter_test;
 
+// ignore_for_file: avoid-ignoring-return-values
 import 'package:easy_dispose_flutter/src/widgets/scroll_controller/scroll_controller_disposable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,7 +27,7 @@ void main() {
 
     await scrollControllerDisposable.dispose();
     expect(
-      () => scrollController.notifyListeners(),
+      scrollController.notifyListeners,
       throwsA(
         // ignore:
         const matcher.TypeMatcher<FlutterError>(),

@@ -27,7 +27,7 @@ void main() {
 }
 
 Timer _createTestTimer() => Timer(
-    const Duration(seconds: 10),
-    // ignore: no-empty-block
-    () {},
-  );
+      const Duration(seconds: 10),
+      // ignore: no-empty-block
+      () {},
+    );

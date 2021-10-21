@@ -14,7 +14,7 @@ class StreamSubscriptionDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     await streamSubscription.cancel();
   }
 }

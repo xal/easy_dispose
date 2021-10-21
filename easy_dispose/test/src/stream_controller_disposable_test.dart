@@ -28,4 +28,4 @@ void main() {
   });
 }
 
-StreamController _createTestStreamController() => StreamController();
+StreamController _createTestStreamController() => StreamController<dynamic>();

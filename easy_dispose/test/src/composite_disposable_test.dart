@@ -1,5 +1,8 @@
+// ignore_for_file: cascade_invocations
+
 library easy_dispose_test;
 
+import 'package:easy_dispose/easy_dispose.dart';
 import 'package:easy_dispose/src/composite_disposable.dart';
 import 'package:easy_dispose/src/custom_disposable.dart';
 import 'package:test/test.dart';
@@ -158,7 +161,7 @@ void main() {
       disposable2,
     ]);
 
-    expect(() async => await compositeDisposable.dispose(), throwsException);
+    expect(compositeDisposable.dispose, throwsException);
 
     expect(disposable1DisposedTime, isNull);
     expect(disposable2DisposedTime, isNull);
@@ -205,14 +208,12 @@ void main() {
         disposeOrder: DisposeOrder.parallel,
         catchExceptions: false,
         disposableExceptionCallback: null,
-      );
+      )..addDisposables([
+          disposable1,
+          disposable2,
+        ]);
 
-      compositeDisposable.addDisposables([
-        disposable1,
-        disposable2,
-      ]);
-
-      expect(() async => await compositeDisposable.dispose(), throwsException);
+      expect(compositeDisposable.dispose, throwsException);
 
       expect(disposable1DisposedTime, isNull);
     },
@@ -234,12 +235,10 @@ void main() {
       final compositeDisposable = CompositeDisposable(
         disposeOrder: DisposeOrder.parallel,
         catchExceptions: true,
-      );
-
-      compositeDisposable.addDisposables([
-        disposable1,
-        disposable2,
-      ]);
+      )..addDisposables([
+          disposable1,
+          disposable2,
+        ]);
 
       await compositeDisposable.dispose();
 
@@ -252,7 +251,6 @@ void main() {
     'CompositeDisposable '
     'catchExceptions true disposableExceptionCallback',
     () async {
-
       final disposable1 = CustomDisposable(() async {
         throw Exception();
       });
@@ -264,7 +262,12 @@ void main() {
 
       final compositeDisposable = CompositeDisposable(
         catchExceptions: true,
-        disposableExceptionCallback: (_, __, ___) {
+        disposableExceptionCallback: (
+          IDisposable disposable,
+          // ignore: avoid_annotating_with_dynamic
+          dynamic error,
+          StackTrace stackTrace,
+        ) {
           disposableExceptionCallbackCalledCount++;
         },
       );
@@ -289,7 +292,13 @@ void main() {
         () => CompositeDisposable(
           catchExceptions: false,
           // ignore: no-empty-block
-          disposableExceptionCallback: (_, __, ___) {},
+          disposableExceptionCallback: (
+            IDisposable disposable,
+            // ignore: avoid_annotating_with_dynamic
+            dynamic error,
+            StackTrace stackTrace,
+            // ignore: no-empty-block
+          ) {},
         ),
         throwsArgumentError,
       );

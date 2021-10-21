@@ -1,5 +1,6 @@
 library easy_dispose_rxdart_test;
 
+// ignore_for_file: avoid-ignoring-return-values
 import 'package:easy_dispose_rxdart/src/subject_disposable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
@@ -26,4 +27,4 @@ void main() {
   });
 }
 
-Subject _createTestSubject() => BehaviorSubject();
+Subject _createTestSubject() => BehaviorSubject<dynamic>();

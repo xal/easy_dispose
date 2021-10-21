@@ -14,7 +14,7 @@ class FocusNodeDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     focusNode.dispose();
   }
 }

@@ -1,5 +1,6 @@
 library easy_dispose_flutter_test;
 
+// ignore_for_file: avoid-ignoring-return-values
 import 'package:easy_dispose_flutter/easy_dispose_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -14,9 +14,9 @@ class StreamControllerDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     // see streamController.close() docs why it is not awaited
-    // ignore: unawaited_futures
+    // ignore: unawaited_futures, avoid-ignoring-return-values
     streamController.close();
   }
 }

@@ -14,7 +14,7 @@ class ScrollControllerDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     scrollController.dispose();
   }
 }

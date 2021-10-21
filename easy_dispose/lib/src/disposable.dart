@@ -1,12 +1,13 @@
 import 'dart:async';
 
+// ignore_for_file: prefer-match-file-name
 /// Base disposable interface
 abstract class IDisposable {
   /// is [dispose] was already called
   bool get isDisposed;
 
   /// free resources. Do nothing if [isDisposed] already true
-  Future dispose();
+  Future<void> dispose();
 }
 
 /// Base disposable implementation with [isDisposed] check
@@ -19,7 +20,7 @@ mixin DisposableMixin on IDisposable {
   bool isDisposed = false;
 
   @override
-  Future dispose() async {
+  Future<void> dispose() async {
     if (!isDisposed) {
       await performDispose();
       isDisposed = true;
@@ -27,5 +28,5 @@ mixin DisposableMixin on IDisposable {
   }
 
   /// actually dispose resources called in dispose() after isDisposed check
-  Future performDispose();
+  Future<void> performDispose();
 }

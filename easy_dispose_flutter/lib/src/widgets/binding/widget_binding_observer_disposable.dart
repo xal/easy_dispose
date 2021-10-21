@@ -4,7 +4,7 @@ import 'package:easy_dispose/easy_dispose.dart';
 import 'package:flutter/widgets.dart';
 
 /// Disposable implementation for [WidgetsBinding]
-class WidgetsBindingObserverDisposable extends Disposable {
+class WidgetBindingObserverDisposable extends Disposable {
   /// [WidgetsBinding] to dispose
   final WidgetsBinding widgetsBinding;
 
@@ -12,7 +12,7 @@ class WidgetsBindingObserverDisposable extends Disposable {
   final WidgetsBindingObserver observer;
 
   /// Default constructor
-  WidgetsBindingObserverDisposable(
+  WidgetBindingObserverDisposable(
     this.widgetsBinding,
     this.observer,
   ) {
@@ -20,18 +20,19 @@ class WidgetsBindingObserverDisposable extends Disposable {
   }
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
+    // ignore: avoid-ignoring-return-values
     widgetsBinding.removeObserver(observer);
   }
 }
 
 /// add [observeAsDisposable] to [WidgetsBinding]
 extension WidgetsBindingDisposableExtension on WidgetsBinding {
-  /// shortcut to create [WidgetsBindingObserverDisposable]
-  WidgetsBindingObserverDisposable observeAsDisposable(
+  /// shortcut to create [WidgetBindingObserverDisposable]
+  WidgetBindingObserverDisposable observeAsDisposable(
     WidgetsBindingObserver observer,
   ) =>
-      WidgetsBindingObserverDisposable(
+      WidgetBindingObserverDisposable(
         this,
         observer,
       );

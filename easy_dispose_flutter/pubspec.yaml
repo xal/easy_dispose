@@ -16,9 +16,10 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  dart_code_metrics: ^4.0.1
+  dart_code_metrics: ^4.4.0
   flutter_lints: ^1.0.3
   flutter_test:
     sdk: flutter
   lints: ^1.0.1
   matcher: ^0.12.10
+  all_lint_rules_community: ^0.0.4

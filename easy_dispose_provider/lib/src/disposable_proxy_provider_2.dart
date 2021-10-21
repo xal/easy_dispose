@@ -2,24 +2,22 @@ import 'package:easy_dispose/easy_dispose.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-///  [ProxyProvider] for [IDisposable] with implemented dispose() method
-class DisposableProxyProvider<T, D extends IDisposable>
-    extends ProxyProvider<T, D> {
+///  [ProxyProvider2] for [IDisposable] with implemented dispose() method
+class DisposableProxyProvider2<T, T2, D extends IDisposable>
+    extends ProxyProvider2<T, T2, D> {
   /// Same constructor as [ProxyProvider]
   /// But dispose already implemented
-  DisposableProxyProvider({
-    required ProxyProviderBuilder<T, D> update,
+  DisposableProxyProvider2({
+    required ProxyProviderBuilder2<T, T2, D> update,
     Key? key,
     Create<D>? create,
     UpdateShouldNotify<D>? updateShouldNotify,
-    TransitionBuilder? builder,
     bool? lazy,
     Widget? child,
   }) : super(
           key: key,
           create: create,
           update: update,
-          builder: builder,
           updateShouldNotify: updateShouldNotify,
           lazy: lazy,
           child: child,

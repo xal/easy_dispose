@@ -14,7 +14,7 @@ class TextEditingControllerDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     textEditingController.dispose();
   }
 }

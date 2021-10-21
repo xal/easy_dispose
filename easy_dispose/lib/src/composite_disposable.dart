@@ -1,18 +1,8 @@
+import 'dart:async';
+
 import 'disposable.dart';
 
-/// [ICompositeDisposable] disposables dispose order
-enum DisposeOrder {
-  /// last input first output
-  /// (preferable)
-  lifo,
-
-  /// first input first output
-  fifo,
-
-  /// dispose all in parallel
-  parallel,
-}
-
+// ignore_for_file: prefer-match-file-name
 /// Dispose several disposables
 abstract class ICompositeDisposable implements IDisposable {
   /// Unmodifiable List of disposables to dispose
@@ -37,6 +27,19 @@ abstract class ICompositeDisposable implements IDisposable {
   void addDisposables(Iterable<IDisposable> disposables);
 }
 
+/// [ICompositeDisposable] disposables dispose order
+enum DisposeOrder {
+  /// last input first output
+  /// (preferable)
+  lifo,
+
+  /// first input first output
+  fifo,
+
+  /// dispose all in parallel
+  parallel,
+}
+
 /// Additional logic to [ICompositeDisposable] interface
 extension ICompositeDisposableExtension on ICompositeDisposable {
   /// is [disposableExceptionCallback] exist
@@ -45,7 +48,7 @@ extension ICompositeDisposableExtension on ICompositeDisposable {
 }
 
 /// Function defined for [ICompositeDisposable.disposableExceptionCallback]
-typedef DisposableExceptionCallback = Function(
+typedef DisposableExceptionCallback = FutureOr<void> Function(
   IDisposable disposable,
   // ignore: avoid_annotating_with_dynamic
   dynamic error,
@@ -113,14 +116,15 @@ class CompositeDisposable extends Disposable implements ICompositeDisposable {
       );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     final sortedDisposables = _calculateSortedDisposables();
 
     if (disposeOrder == DisposeOrder.parallel) {
       final futures = sortedDisposables.map(
-        (disposable) => _dispose(disposable),
+        _dispose,
       );
 
+      // ignore: avoid-ignoring-return-values
       await Future.wait(futures);
     } else {
       for (final disposable in sortedDisposables) {
@@ -129,7 +133,7 @@ class CompositeDisposable extends Disposable implements ICompositeDisposable {
     }
   }
 
-  Future _dispose(IDisposable disposable) async {
+  Future<void> _dispose(IDisposable disposable) async {
     if (catchExceptions) {
       try {
         await disposable.dispose();

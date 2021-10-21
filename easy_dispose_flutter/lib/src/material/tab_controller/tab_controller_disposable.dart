@@ -14,7 +14,7 @@ class TabControllerDisposable extends Disposable {
   );
 
   @override
-  Future performDispose() async {
+  Future<void> performDispose() async {
     tabController.dispose();
   }
 }
