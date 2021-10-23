@@ -167,9 +167,16 @@ scripts:
     run: flutter pub global run melos exec -c 4 --fail-fast -- \
       rm -rf ./android/.gradle
 
-  test:remove-generated-from-coverage:
+  test:remove_generated_from_coverage:
     run: |
       melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh"
     description: Removes all the ignored files from the coverage report.
     select-package:
       dir-exists: coverage
+
+  test:generate_coverage_helper_test:
+    run: |
+      melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/generate_coverage_helper_test.sh"
+    description: Generate file to get full coverage report.
+    select-package:
+      dir-exists: test
