@@ -169,7 +169,7 @@ scripts:
 
   test:remove-generated-from-coverage:
     run: |
-      melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh.sh"
+      melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh"
     description: Removes all the ignored files from the coverage report.
     select-package:
       dir-exists: coverage
