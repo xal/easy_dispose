@@ -39,7 +39,7 @@ jobs:
         run: flutter pub global run melos run test:coverage
 
       - name: Remove generated files from coverage from actual tests
-        run: flutter pub global run melos exec --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh"
+        run: flutter pub global run melos run test:remove-generated-from-coverage
 
       - name: Upload to unit tests coverage codecov
         uses: codecov/codecov-action@v1
@@ -53,14 +53,14 @@ jobs:
       - name: Generate coverage_helper_test.dart to get total coverage
         run: flutter pub global run melos exec --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/generate_coverage_helper_test.dart.sh"
 
-      - name: Remove generated files from coverage from coverage_helper_test.dart
-        run: flutter pub global run melos exec --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh"
-
       # it is not possible to run all tests with coverage_helper_test due to bad performance
       - name: Run Flutter test for coverage_helper_test.dart
         # step will fail because coverage_helper_test.dart dont have tests
         continue-on-error: true
-        run: flutter test --coverage --no-pub --no-null-assertions --no-track-widget-creation -j 10 --coverage-path=coverage/lcov_all.info test/coverage_helper_test.dart
+        run: flutter test --coverage --no-pub --no-null-assertions --no-track-widget-creation -j 10 test/coverage_helper_test.dart
+
+      - name: Remove generated files from coverage from coverage_helper_test.dart
+        run: flutter pub global run melos run test:remove-generated-from-coverage
 
       - name: Upload coverage_helper_test.dart coverage to codecov
         uses: codecov/codecov-action@v1
