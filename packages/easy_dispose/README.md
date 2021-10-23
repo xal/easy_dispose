@@ -1,5 +1,11 @@
 [![Pub](https://img.shields.io/pub/v/easy_dispose.svg)](https://pub.dev/packages/easy_dispose)
 
+[![Unit tests](https://github.com/xal/easy_dispose/actions/workflows/unit_tests_with_coverage.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/unit_tests_with_coverage.yml/)
+[![Lints](https://github.com/xal/easy_dispose/actions/workflows/lints.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/lints.yml.yml/)
+[![dartfmt](https://github.com/xal/easy_dispose/actions/workflows/code_formatting.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/code_formatting.yml/)
+
+[![codecov](https://codecov.io/gh/xal/easy_dispose/branch/master/graph/badge.svg?token=2IN0I5DT4C)](https://codecov.io/gh/xal/easy_dispose)
+
 Dart and Flutter classes have different methods to dispose and clean up.
 Like cancel, stop, removeListener, etc.
 This package define `IDisposable` interface and special implementations for different types, like `StreamControllerDisposable`

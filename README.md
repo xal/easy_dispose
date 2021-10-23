@@ -1,4 +1,5 @@
 [![Pub](https://img.shields.io/pub/v/easy_dispose.svg)](https://pub.dev/packages/easy_dispose)
+[![codecov](https://codecov.io/gh/xal/easy_dispose/branch/master/graph/badge.svg?token=2IN0I5DT4C)](https://codecov.io/gh/xal/easy_dispose)
 
 Dart and Flutter classes have different methods to dispose and clean up.
 Like cancel, stop, removeListener, etc.

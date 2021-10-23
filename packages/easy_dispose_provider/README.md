@@ -1,5 +1,11 @@
 [![Pub](https://img.shields.io/pub/v/easy_dispose_provider.svg)](https://pub.dev/packages/easy_dispose_provider)
 
+[![Unit tests](https://github.com/xal/easy_dispose/actions/workflows/unit_tests_with_coverage.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/unit_tests_with_coverage.yml/)
+[![Lints](https://github.com/xal/easy_dispose/actions/workflows/lints.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/lints.yml.yml/)
+[![dartfmt](https://github.com/xal/easy_dispose/actions/workflows/code_formatting.yml/badge.svg)](https://github.com/xal/easy_dispose/actions/workflows/code_formatting.yml/)
+
+[![codecov](https://codecov.io/gh/xal/easy_dispose/branch/master/graph/badge.svg?token=2IN0I5DT4C)](https://codecov.io/gh/xal/easy_dispose)
+
 Add disposable feature to [`provider`](https://pub.dev/packages/provider) classes.
 Read [`easy_dispose`](https://pub.dev/packages/easy_dispose) documentation for details.
 

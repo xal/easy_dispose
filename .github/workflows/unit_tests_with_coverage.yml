@@ -1,4 +1,4 @@
-name: unit_tests
+name: unit_tests_with_coverage
 on:
   push:
     branches:
@@ -68,6 +68,6 @@ jobs:
       - name: Upload coverage_helper_test.dart coverage to codecov
         uses: codecov/codecov-action@v1
         with:
-          files: packages/*/coverage/lcov_all.info
+          files: packages/*/coverage/lcov.info
           flags: all_tests
           fail_ci_if_error: true
