@@ -1,0 +1,44 @@
+name: code_formatting
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  unit-test:
+    name: Code formatting on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    steps:
+
+      # Checkout code and get packages.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Readm FVM config
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+
+      - name: Set up Flutter.
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+
+      - run: flutter --version
+
+      - name: Install Tools
+        run: |
+          ./.github/workflows/scripts/install_tools.sh
+
+      - name: Bootstrap Workspace
+        run: flutter pub global run melos bootstrap
+
+      - name: Ensure the Dart code is formatted correctly
+        run: flutter pub global run melos run format:check

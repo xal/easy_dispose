@@ -1,0 +1,24 @@
+name: easy_dispose_provider_example
+version: 1.0.1
+publish_to: none
+
+description: An example project that uses easy_dispose_provider
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.16.0"
+
+dependencies:
+  easy_dispose: ">=1.0.0 <=1.1.0"
+  # only for this repo
+  easy_dispose_provider:
+    path: ../
+  # usage example
+  # easy_dispose_provider: version
+
+  flutter:
+    sdk: flutter
+  provider: ">=5.0.0 <=6.0.0"
+
+dev_dependencies:
+  all_lint_rules_community: ^0.0.4

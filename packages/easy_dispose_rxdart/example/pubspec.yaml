@@ -15,3 +15,6 @@ dependencies:
   # usage example
   # easy_dispose_rxdart: version
   rxdart: ">=0.26.0 <=1.0.0"
+
+dev_dependencies:
+  all_lint_rules_community: ^0.0.4

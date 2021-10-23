@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:easy_dispose/easy_dispose.dart';
-import 'package:rxdart/rxdart.dart';
 
-// ignore_for_file: no-empty-block, avoid_print
+// ignore_for_file: no-empty-block, avoid_print, prefer-match-file-name
 Future main() async {
   final myDisposableOwner = MyDisposableOwner();
 
@@ -13,16 +12,21 @@ Future main() async {
 }
 
 class MyDisposableOwner extends DisposableOwner {
-  final Subject subject = BehaviorSubject<dynamic>();
+  final StreamController streamController = StreamController<dynamic>();
+  final Timer timer = Timer(
+    const Duration(seconds: 5),
+    () async {},
+  );
 
   MyDisposableOwner()
       : super(
           disposeOrder: DisposeOrder.lifo,
         ) {
     addCustomDisposable(() => print('Final dispose'));
-    subject.disposeWith(this);
+    streamController.disposeWith(this);
+    timer.disposeWith(this);
 
-    subject.stream
+    streamController.stream
         .listen(
           (dynamic event) {},
         )

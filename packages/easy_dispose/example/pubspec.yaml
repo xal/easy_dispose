@@ -13,3 +13,6 @@ dependencies:
     path: ../
   # usage example
   # easy_dispose: version
+
+dev_dependencies:
+  all_lint_rules_community: ^0.0.4
