@@ -10,7 +10,7 @@ on:
 
 jobs:
   unit-test:
-    name: Code formatting on ${{ matrix.os }}
+    name: Unit tests on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

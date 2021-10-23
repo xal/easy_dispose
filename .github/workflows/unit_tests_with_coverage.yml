@@ -5,8 +5,8 @@ on:
       - master
 
 jobs:
-  unit-test:
-    name: Code formatting on ${{ matrix.os }}
+  unit-unit_tests_with_coverage:
+    name: Unit test with coverage on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
