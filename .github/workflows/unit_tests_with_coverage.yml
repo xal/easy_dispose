@@ -39,7 +39,7 @@ jobs:
         run: flutter pub global run melos run test:coverage
 
       - name: Remove generated files from coverage from actual tests
-        run: flutter pub global run melos run test:remove-generated-from-coverage
+        run: flutter pub global run melos run test:remove-generated-from-coverage --no-select
 
       - name: Upload to unit tests coverage codecov
         uses: codecov/codecov-action@v1
@@ -60,7 +60,7 @@ jobs:
         run: flutter test --coverage --no-pub --no-null-assertions --no-track-widget-creation -j 10 test/coverage_helper_test.dart
 
       - name: Remove generated files from coverage from coverage_helper_test.dart
-        run: flutter pub global run melos run test:remove-generated-from-coverage
+        run: flutter pub global run melos run test:remove-generated-from-coverage --no-select
 
       - name: Upload coverage_helper_test.dart coverage to codecov
         uses: codecov/codecov-action@v1

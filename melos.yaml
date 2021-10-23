@@ -130,7 +130,8 @@ scripts:
       - Requires running Android and iOS simulators.
 
   test:integration:android:
-    run: melos exec -c 1 --fail-fast "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
+    run: melos exec -c 1 --fail-fast -- \
+      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk
     description:
       Run integration tests for a single package on an Android emulator.
       - Run with `--no-select` to run for all applicable packages.
@@ -141,7 +142,8 @@ scripts:
       scope: "*example*"
 
   test:integration:ios:
-    run: melos exec -c 1 --fail-fast "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
+    run: melos exec -c 1 --fail-fast -- \
+      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone
     description: Run integration tests for a single package on an iOS simulator.
       - Run with `--no-select` to run for all applicable packages.
       - Requires launching an iOS simulator prior to execution.
@@ -168,6 +170,13 @@ scripts:
   test:remove-generated-from-coverage:
     run: |
       melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove-from-coverage.sh"
+    description: Removes all the ignored files from the coverage report.
+    select-package:
+      dir-exists: coverage
+
+  pub:add:
+    run: |
+      melos exec --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove-from-coverage.sh"
     description: Removes all the ignored files from the coverage report.
     select-package:
       dir-exists: coverage
