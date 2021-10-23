@@ -38,6 +38,9 @@ jobs:
       - name: Run tests with coverage
         run: flutter pub global run melos run test:coverage
 
+      - name: Activate remove_from_coverage
+        run: flutter pub global activate remove_from_coverage
+
       - name: Remove generated files from coverage from actual tests
         run: flutter pub global run melos run test:remove-generated-from-coverage --no-select
 
