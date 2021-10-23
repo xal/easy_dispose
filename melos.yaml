@@ -93,7 +93,7 @@ scripts:
 
   test:dart:coverage:
     run: flutter pub global run melos exec -c 1 --fail-fast -- \
-      flutter test --coverage"
+      flutter test --coverage
     description: Run Dart tests for a specific package in this project.
     select-package:
       flutter: false
@@ -101,7 +101,7 @@ scripts:
 
   test:flutter:coverage:
     run: flutter pub global run melos exec -c 4 --fail-fast -- \
-      flutter test --coverage"
+      flutter test --coverage
     description: Run Flutter tests for a specific package in this project.
     select-package:
       flutter: true
@@ -122,7 +122,6 @@ scripts:
   build:examples:release:android:
     run: flutter pub global run melos exec -c 4 --fail-fast --scope="*example*,sample_app -- \
       flutter build apk --verbose
-
 
   test:integration:
     run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
@@ -157,9 +156,11 @@ scripts:
   clean:build:
     run: flutter pub global run melos exec -c 4 --fail-fast -- \
       rm -rf ./build
+
   clean:ios:
     run: flutter pub global run melos exec -c 4 --fail-fast -- \
       rm -rf /ios/.symlinks ./ios/Pods ./ios/Podfile.lock
+
   clean:android:
     run: flutter pub global run melos exec -c 4 --fail-fast -- \
       rm -rf ./android/.gradle
