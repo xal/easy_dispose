@@ -173,10 +173,3 @@ scripts:
     description: Removes all the ignored files from the coverage report.
     select-package:
       dir-exists: coverage
-
-  pub:add:
-    run: |
-      melos exec --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove-from-coverage.sh"
-    description: Removes all the ignored files from the coverage report.
-    select-package:
-      dir-exists: coverage
