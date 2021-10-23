@@ -18,14 +18,12 @@ scripts:
       Run `dart analyze` in all packages.
 
   format:
-    run: flutter format .
+    run:    flutter pub global run melos exec -c 5 --ignore="*example*" "flutter format ."
     description: |
       Run `flutter format .` in all packages.
 
   format:check:
-    run: flutter format --set-exit-if-changed --dry-run .
-    description: |
-      Run `flutter format --set-exit-if-changed --dry-run .` in all packages.
+    run:   flutter pub global run melos exec -c 5 --ignore="*example*" "flutter format --set-exit-if-changed --dry-run ."
 
 
   pub:publish:dry-run:
