@@ -4,108 +4,191 @@ packages:
   - packages/**
 
 scripts:
-  tuneup_check:
+
+  tuneup:init:
     run: |
-      flutter pub global run melos exec -- \
-        pub global run tuneup check
+      flutter pub global activate tuneup
+    description: |
+      Activate tuneup tool
+
+  tuneup:check:
+    run: |
+      flutter pub global run melos exec --ignore="*example*" -- \
+      flutter pub global run tuneup check
     description: |
       Quickly checks for dart analyzing errors
 
-  tuneup_stats:
+  tuneup:stats:
     run: |
-      flutter pub global run melos exec -- \
-        pub global run tuneup stats
+      flutter pub global run melos exec --ignore="*example*" -- \
+      flutter pub global run tuneup stats
     description: |
       Display packages code/fiels stats
 
   analyze:
     run: |
       flutter pub global run melos exec -c 5 --ignore="*example*" -- \
-        dart analyze --fatal-infos .
+      flutter analyze --fatal-infos .
     description: |
       Format code all lints from analysis_options.yaml
+
+  analyze:find_unused_files:
+    run: |
+      flutter pub global run melos exec -c 1 --ignore="*example*" -- \
+      flutter pub run dart_code_metrics:metrics check-unused-files lib
+    description: |
+      Find all unused files
 
   format:
     run: |
       flutter pub global run melos exec -c 5 --ignore="*example*" -- \
-        flutter format .
+      flutter format .
     description: |
       Format code
 
   format:check:
     run: |
       flutter pub global run melos exec -c 5 --ignore="*example*" -- \
-        flutter format --set-exit-if-changed --dry-run .
+      flutter format --set-exit-if-changed --dry-run .
     description: |
       Check is code properly formatted
 
-  pub:publish:dry-run:
-    run: |
-      flutter pub global run melos exec -c 5 --no-private --ignore="*example*" -- \
-            pub publish --dry-run
-    description: |
-      Dry-run publish packages to pub dev
-
-  pub:publish:
-    run: |
-      flutter pub global run melos exec -c 5 --no-private --ignore="*example*" -- \
-            pub publish
-    description: |
-      Publish packages to pub dev
-
   generate:
-    run: flutter pub global run melos run generate:dart && flutter pub global run melos run generate:flutter
-    description: Build all generated files for Dart & Flutter packages in this project.
+    run: |
+      flutter pub global run melos run generate:build_runner --no-select
+    description: |
+      Build all generated files
 
-  generate:dart:
-    run: flutter pub global run melos exec -c 1 --fail-fast --depends-on="build_runner" --no-flutter -- \
-      dart run build_runner build --delete-conflicting-outputs
-    description: Build all generated files for Dart packages in this project.
+  generate:build_runner:
+    run: |
+      flutter pub global run melos exec -c 1 --fail-fast --depends-on="build_runner" -- \
+      "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: Generate all code via build_runner tasks(moor, freezed, json, etc)
 
-  generate:flutter:
-    run: flutter pub global run melos exec -c 1 --fail-fast --depends-on="build_runner" --flutter -- \
-      flutter pub run build_runner build --delete-conflicting-outputs
-    description: Build all generated files for Flutter packages in this project.
-
-  test:
-    run: flutter pub global run melos run test:dart && flutter pub global run melos run test:flutter
-    description: Run all Dart & Flutter tests in this project.
-
-  test:dart:
-    run: flutter pub global run melos exec -c 1 --fail-fast --\
-      flutter test
-    description: Run Dart tests for a specific package in this project.
-    select-package:
-      flutter: false
-      dir-exists: test
-
-  test:flutter:
+  test:unit:
     run: flutter pub global run melos exec -c 1 --fail-fast -- \
       flutter test
     description: Run Flutter tests for a specific package in this project.
     select-package:
-      flutter: true
       dir-exists: test
 
-  test:coverage:
-    run: flutter pub global run melos run test:dart:coverage --no-select && flutter pub global run melos run test:flutter:coverage --no-select
-    description: Run all Dart & Flutter tests in this project.
-
-  test:dart:coverage:
-    run: flutter pub global run melos exec -c 1 --fail-fast -- \
-      flutter test --coverage
-    description: Run Dart tests for a specific package in this project.
+  test:unit:coverage:
+    run: |
+      flutter pub global run melos exec -c 1 --fail-fast flutter test --coverage && \
+      flutter pub global run melos run --no-select test:coverage:remove_unnecessary
+    description: |
+      Run Flutter tests with coverage for a specific package in this project.
     select-package:
-      flutter: false
       dir-exists: test
 
-  test:flutter:coverage:
-    run: flutter pub global run melos exec -c 4 --fail-fast -- \
-      flutter test --coverage
-    description: Run Flutter tests for a specific package in this project.
+  test:unit:coverage:full:
+    run: |
+      flutter pub global run melos run --no-select test:coverage:generate_helper && \
+      flutter pub global run melos run --no-select test:unit:coverage
+    description: |
+      Run Flutter tests with coverage for a specific package in this project with hack for full coverage
     select-package:
-      flutter: true
       dir-exists: test
+
+  test:unit:coverage:helper:
+    run: |
+      flutter pub global run melos run --no-select test:coverage:generate_helper && \
+      flutter pub global run melos exec --no-select -- \
+      flutter test --coverage --no-pub test/coverage_helper_test.dart && \
+      flutter pub global run melos run --no-select test:coverage:remove_unnecessary
+    description: |
+      Run only coverage helper Flutter tests
+    select-package:
+      dir-exists: test
+
+  test:coverage:init:
+    run: |
+      flutter pub global activate remove_from_coverage
+    description: Init coverage tools
+
+  test:coverage:remove_unnecessary:
+    run: |
+      flutter pub global run melos exec -c 5 --fail-fast -- \
+      "pub global run remove_from_coverage:remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$' -r '\.freezed\.dart$' -r '\.mock_helper\.dart$'"
+    description: |
+      Removes all the unnecessary(generated, mock, etc) files from the coverage report.
+    select-package:
+      dir-exists: coverage
+
+  test:coverage:generate_helper:
+    run: |
+      flutter pub global run melos exec -c 5 --fail-fast -- \
+      $MELOS_ROOT_PATH/tools/coverage_generate_helper.sh
+    description: Generate file to get full coverage report.
+    select-package:
+      dir-exists: test
+
+  test:integration:
+    run: |
+      melos run test:integration:android --no-select && \
+      melos run test:integration:ios --no-select
+    description: |
+      Run all integration tests for all package example apps on Android and iOS simulators. Skips if no tests available.
+      - Requires running Android and iOS simulators.
+
+  test:integration:android:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk
+    description: |
+      Run integration tests for a single package on an Android emulator.
+      - Run with `--no-select` to run for all applicable packages.
+      - Requires launching an Android emulator prior to execution.
+    select-package:
+      file-exists:
+        - integration_test/main_test.dart
+
+  test:integration:ios:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone
+    description: |
+      Run integration tests for a single package on an iOS simulator.
+      - Run with `--no-select` to run for all applicable packages.
+      - Requires launching an iOS simulator prior to execution.
+    select-package:
+      file-exists:
+        - integration_test/main_test.dart
+
+  clean:
+    run: |
+      flutter pub global run melos run clean:flutter --no-select && \
+      flutter pub global run melos run clean:build --no-select && \
+      flutter pub global run melos run clean:android --no-select && \
+      flutter pub global run melos run clean:ios --no-select
+    description:  |
+      Clear all possible things
+
+  clean:flutter:
+    run: |
+      flutter pub global run melos exec -c 1 flutter clean
+    description: |
+      Base flutter clean
+
+  clean:build:
+    run: |
+      flutter pub global run melos exec -c 5 --fail-fast -- \
+      rm -rf ./build
+    description: |
+      Delete build folder
+
+  clean:ios:
+    run: flutter pub global run melos exec -c 5 --fail-fast -- \
+      rm -rf /ios/.symlinks ./ios/Pods ./ios/Podfile.lock
+    description: |
+      Clean ios Pods
+
+  clean:android:
+    run: |
+      flutter pub global run melos exec -c 5 --fail-fast -- \
+      rm -rf ./android/.gradle
+    description: |
+      Clean android gradle
 
   build:examples:ios:
     run: flutter pub global run melos exec -c 4 --fail-fast --scope="*example*,sample_app -- \
@@ -123,60 +206,16 @@ scripts:
     run: flutter pub global run melos exec -c 4 --fail-fast --scope="*example*,sample_app -- \
       flutter build apk --verbose
 
-  test:integration:
-    run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
-    description:
-      Run all integration tests for all package example apps on Android and iOS simulators. Skips if no tests available.
-      - Requires running Android and iOS simulators.
-
-  test:integration:android:
-    run: melos exec -c 1 --fail-fast -- \
-      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk
-    description:
-      Run integration tests for a single package on an Android emulator.
-      - Run with `--no-select` to run for all applicable packages.
-      - Requires launching an Android emulator prior to execution.
-    select-package:
-      file-exists:
-        - integration_test/main_test.dart
-      scope: "*example*"
-
-  test:integration:ios:
-    run: melos exec -c 1 --fail-fast -- \
-      flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone
-    description: Run integration tests for a single package on an iOS simulator.
-      - Run with `--no-select` to run for all applicable packages.
-      - Requires launching an iOS simulator prior to execution.
-    select-package:
-      file-exists:
-        - integration_test/main_test.dart
-      scope: "*example*"
-
-  clean:flutter:
-    run: flutter pub global run melos exec flutter clean
-
-  clean:build:
-    run: flutter pub global run melos exec -c 4 --fail-fast -- \
-      rm -rf ./build
-
-  clean:ios:
-    run: flutter pub global run melos exec -c 4 --fail-fast -- \
-      rm -rf /ios/.symlinks ./ios/Pods ./ios/Podfile.lock
-
-  clean:android:
-    run: flutter pub global run melos exec -c 4 --fail-fast -- \
-      rm -rf ./android/.gradle
-
-  test:remove_generated_from_coverage:
+  pub:publish:dry-run:
     run: |
-      melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/remove_from_coverage.sh"
-    description: Removes all the ignored files from the coverage report.
-    select-package:
-      dir-exists: coverage
+      flutter pub global run melos exec -c 5 --no-private --ignore="*example*" -- \
+            pub publish --dry-run
+    description: |
+      Dry-run publish packages to pub dev
 
-  test:generate_coverage_helper_test:
+  pub:publish:
     run: |
-      melos exec -c 5 --fail-fast -- "\$MELOS_ROOT_PATH/.github/workflows/scripts/generate_coverage_helper_test.sh"
-    description: Generate file to get full coverage report.
-    select-package:
-      dir-exists: test
+      flutter pub global run melos exec -c 5 --no-private --ignore="*example*" -- \
+            pub publish
+    description: |
+      Publish packages to pub dev
